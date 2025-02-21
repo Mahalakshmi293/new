@@ -1,0 +1,20 @@
+{
+   "1": {
+      "name": "Maha",
+      "age": "21",
+      "course": "python",
+      "address": "tuty"
+   },
+   "3": {
+      "name": "Mahalakshmi",
+      "age": "23",
+      "course": "Java",
+      "address": " Tuticorin"
+   },
+   "5": {
+      "name": "Sivapriya",
+      "age": "21",
+      "course": "python",
+      "address": " Tuticorin"
+   }
+}

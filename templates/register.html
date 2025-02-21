@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/static/style/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container my-5 text-center">
+        <h2>Student Manager</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3  mx-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="card-body">
+                            <h5 class="Registration">Registration</h5>
+
+                            <form action="/registration" method="post">
+                                <input type="text" name="name" placeholder="Enter the student name"
+                                    class="my-3 form-control">
+                                <input type="number" name="age" placeholder="Enter the student age"
+                                    class="my-3 form-control" max="100" min="15">
+                                <select name="course" id="" class="my-3 form-control">
+                                    <option value="select the course">select the course</option>
+                                    <option value="python"> python</option>
+                                    <option value="Java">Java</option>
+                                    <option value="Tally">Tally</option>
+                                    <option value="web development">web development</option>
+                                </select>
+                                <div class="form-floating my-3">
+
+                                    <textarea name="address" id="floatingTextarea" placeholder="Enter the address here"
+                                        class="form-control"></textarea>
+                                    <label for="floatingTextarea">Address</label>
+
+                                </div>
+                                <input type="submit" value="Register" class="btn btn-outline-success">
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-3">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>course</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                    {%for k,v in stud_data.items()%}
+                    <tr>
+                        <td>{{k}}</td>
+                        <td>{{v.name}}</td>
+                        <td>{{v.age}}</td>
+                        <td>{{v.course}}</td>
+                        <td>{{v.address}}</td>
+                        <td>
+
+                            <button class="btn  btn-warning"><i><i class="fa-solid fa-user-pen" style="color: #000000;"
+                                        data-bs-toggle="modal" data-bs-target="#{{k}}"></i></i></button>
+
+                            <!-- model_start -->
+
+                            <div class="modal fade" id="{{k}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/update/{{k}}" method="post">
+                                                <label for="">Name</label>
+                                                <input type="text" name="name" placeholder="Enter the student name"
+                                                    class="my-3 form-control"  value="{{v.name}}">
+                                                    <label for="">Age</label>
+                                                <input type="number" name="age" placeholder="Enter the student age" 
+                                                    class="my-3 form-control" max="100" min="15" value="{{v.age}}">
+                                                    <label for="">Course</label>
+                                                {%if v.course=="python"%}
+                                                <select name="course" id="" class="my-3 form-control">
+                                                    <option value="select the course">select the course</option>
+                                                    <option value="python" selected> python</option>
+                                                    <option value="Java">Java</option>
+                                                    <option value="Tally">Tally</option>
+                                                    <option value="web development">web development</option>
+                                                </select>
+                                                {%elif v.course=="Java"%}
+                                                <select name="course" id="" class="my-3 form-control">
+                                                    <option value="select the course">select the course</option>
+                                                    <option value="python"> python</option>
+                                                    <option value="Java" selected>Java</option>
+                                                    <option value="Tally">Tally</option>
+                                                    <option value="web development">web development</option>
+                                                </select>
+                                                {%elif v.course=="Tally"%}
+                                                <select name="course" id="" class="my-3 form-control">
+                                                    <option value="select the course">select the course</option>
+                                                    <option value="python"> python</option>
+                                                    <option value="Java">Java</option>
+                                                    <option value="Tally" selected>Tally</option>
+                                                    <option value="web development">web development</option>
+                                                </select>
+                                                {%else%}
+                                                <select name="course" id="" class="my-3 form-control">
+                                                    <option value="select the course">select the course</option>
+                                                    <option value="python"> python</option>
+                                                    <option value="Java">Java</option>
+                                                    <option value="Tally">Tally</option>
+                                                    <option value="web development" selected>web development</option>
+                                                </select>
+                                                {%endif%}
+
+
+                                                <div class="form-floating my-3">
+
+                                                    <textarea name="address" id="floatingTextarea" 
+                                                        placeholder="Enter the address here"
+                                                        class="form-control"> {{v.address}}</textarea>
+                                                    <label for="floatingTextarea">Address</label>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                
+                                            </form>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- model_end -->
+                            <a href="/delete/{{k}}" class="btn btn-danger"><i><i class="fa-solid fa-trash"
+                                        style="color: #490202;"></i></i></a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://kit.fontawesome.com/2858b8ee71.js" crossorigin="anonymous"></script>
+    <script src="/static/js/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
